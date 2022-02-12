@@ -22,14 +22,15 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        //public MainWindow()
+        //{
+        //    InitializeComponent();
+        //}
 
         private void ComboBox_SelectionChanged1 (object sender, SelectionChangedEventArgs e)
         {
-            string fontName = ((sender as ComboBox).SelectedItem as TextBlock).Text;
+            //string fontName = ((sender as ComboBox).SelectedItem as TextBlock).Text;
+            string fontName = ((sender as ComboBox).SelectedItem as string);
             if (textBox != null)
             {
                 textBox.FontFamily = new FontFamily(fontName);
@@ -45,7 +46,8 @@ namespace WpfApp1
             
             if (textBox != null)
             {
-                double fontSize = Convert.ToDouble(((sender as ComboBox).SelectedItem as TextBlock).Text);
+                //double fontSize = Convert.ToDouble(((sender as ComboBox).SelectedItem as TextBlock).Text);
+                double fontSize = Convert.ToDouble(((sender as ComboBox).SelectedItem as string));
                 textBox.FontSize = fontSize;
             }
         }
@@ -122,16 +124,23 @@ namespace WpfApp1
         {
             if (textBox != null)
             {
-                textBox.Foreground = Brushes.Yellow;
+                textBox.Foreground = Brushes.Blue;
             }
 
         }
+
+
+
+
+
+
+
 
         private void MenuItem_Click1(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
-            if (openFileDialog.ShowDialog()==true)
+            if (openFileDialog.ShowDialog() == true)
             {
                 textBox.Text = File.ReadAllText(openFileDialog.FileName);
             }
@@ -147,10 +156,48 @@ namespace WpfApp1
             }
         }
 
-        private void MenuItem_Click3(object sender, RoutedEventArgs e)
+        //private void MenuItem_Click3(object sender, RoutedEventArgs e)
+        //{
+        //    Application.Current.Shutdown();
+        //}
+
+        private void ExitExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
+
+        private void themes_SelectionChanges(object sender, SelectionChangedEventArgs e)
+        {
+            Application.Current.Resources.MergedDictionaries.Clear();
+            Uri theme = new Uri(themes.SelectedIndex == 0 ? "Light.xaml" : "Dark.xaml", UriKind.Relative);
+            ResourceDictionary themeDict = Application.LoadComponent(theme) as ResourceDictionary;
+            Application.Current.Resources.MergedDictionaries.Add(themeDict);
+        }
+
+
+
+
+
+        //private void OpenExecuted(object sender, ExecutedRoutedEventArgs e)
+        //{
+        //    OpenFileDialog openFileDialog = new OpenFileDialog();
+        //    openFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
+        //    if (openFileDialog.ShowDialog() == true)
+        //    {
+        //        textBox.Text = File.ReadAllText(openFileDialog.FileName);
+        //    }
+        //}
+
+        //private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        //{
+        //    OpenFileDialog openFileDialog = new OpenFileDialog();
+        //    openFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
+        //    if (openFileDialog.ShowDialog() == true)
+        //    {
+        //        textBox.Text = File.ReadAllText(openFileDialog.FileName);
+        //    }
+
+        //}
     }
 
 }

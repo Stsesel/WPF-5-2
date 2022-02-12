@@ -6,6 +6,14 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="local:MyCommands.Exit" Executed="ExitExecuted"/>
+        <CommandBinding Command="Open" Executed="MenuItem_Click1"/>
+        <CommandBinding Command="Save" Executed="MenuItem_Click2"/>
+    </Window.CommandBindings>
+
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -15,24 +23,39 @@
 
         <Menu Grid.Row="0" Margin ="5" Padding="5">
             <MenuItem Header="_Файл">
-                <MenuItem Header="_Открыть" Click="MenuItem_Click1" />
-                <MenuItem Header="_Сохранить" Click="MenuItem_Click2" />
-                <MenuItem Header="_Закрыть" Click="MenuItem_Click3" />
+                <!--<MenuItem Header="_Открыть" Click="MenuItem_Click1" />-->
+                <MenuItem Header="_Открыть" Command="ApplicationCommands.Open"/>
+                <!--<MenuItem Header="_Сохранить" Click="MenuItem_Click2" />-->
+                <MenuItem Header="_Сохранить" Command="ApplicationCommands.Save"/>
+                <Separator/>
+                <!--<MenuItem Header="_Закрыть" Click="MenuItem_Click3" />-->
+                <MenuItem Header="_Закрыть" Command="local:MyCommands.Exit"/>
             </MenuItem>                               
         </Menu>
 
         <ToolBarTray Grid.Row="1">
             <ToolBar Margin="5" Padding="5">
-                <ComboBox Margin="5" Padding="5" SelectedIndex="0" Width="200" SelectionChanged="ComboBox_SelectionChanged1">
-                    <TextBlock Text="Arial"/>
+                <ComboBox Margin="5" 
+                          Padding="5"
+                          SelectedIndex="0"
+                          Width="200"
+                          SelectionChanged="ComboBox_SelectionChanged1"
+                          ItemsSource="{StaticResource fonts}"/>
+
+                <!--<TextBlock Text="Arial"/>
                     <TextBlock Text="Times New Roman"/>
-                    <TextBlock Text="Verdana"/>
-                </ComboBox>
-                <ComboBox Margin="5" Padding="5" SelectedIndex="0" Width="50" SelectionChanged="ComboBox_SelectionChanged2">
-                    <TextBlock Text="12"/>
+                    <TextBlock Text="Verdana"/>-->
+                <!--</ComboBox>-->
+                <ComboBox Margin="5"
+                          Padding="5"
+                          SelectedIndex="0"
+                          Width="50"
+                          SelectionChanged="ComboBox_SelectionChanged2"
+                          ItemsSource="{StaticResource sizes}"/>
+                    <!--<TextBlock Text="12"/>
                     <TextBlock Text="14"/>
-                    <TextBlock Text="16"/>                   
-                </ComboBox>
+                    <TextBlock Text="16"/>-->                   
+                <!--</ComboBox>-->
             </ToolBar>
             
             <ToolBar Margin="5" Padding="5" >
@@ -59,7 +82,19 @@
                     <RadioButton Content="Black" IsChecked="True" Checked="Black_Checked"/>
                     <RadioButton Content="Green" IsChecked="True" Checked="Green_Checked"/>
                     <RadioButton Content="Yellow" IsChecked="True" Checked="Yellow_Checked"/>
-                </StackPanel>                
+                </StackPanel>
+                <ComboBox Name="themes"
+                          Width="150"
+                          SelectedIndex="0"
+                          Margin="5" SelectionChanged="themes_SelectionChanges">                    
+                    <TextBlock Text="Светлая"/>
+                    <TextBlock Text="Темная"/>                    
+                </ComboBox>
+                
+                
+                
+                
+                
             </ToolBar>
         </ToolBarTray>
 
